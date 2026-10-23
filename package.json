@@ -1,0 +1,36 @@
+{
+  "name": "lossmap",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "web"
+  ],
+  "scripts": {
+    "test": "npm -w @lossmap/core run test && npm -w web run test",
+    "typecheck": "npm -w @lossmap/core run typecheck && npm -w web run typecheck",
+    "db:test": "bash supabase/tests/run.sh",
+    "sync:functions": "node scripts/sync-core.mjs",
+    "check:functions": "node scripts/sync-core.mjs --check",
+    "deno:check": "bash scripts/deno-check.sh",
+    "lint": "eslint .",
+    "build": "npm -w web run build",
+    "dev": "npm -w web run dev",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.56.1",
+    "deno": "2.7.14",
+    "eslint": "10.12.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.13.0",
+    "pg": "8.23.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "type": "module"
+}

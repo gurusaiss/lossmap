@@ -1,0 +1,176 @@
+{
+ "kpis": [
+  {
+   "total_loss_rs": 46053.3,
+   "value_in": 573192.07,
+   "loss_pct": 8.03,
+   "lots": 114,
+   "open_alerts": 2,
+   "worst_centre_id": "de040000-0000-4000-8000-000000000002",
+   "worst_centre_name": "Centre B (Punganur)",
+   "worst_centre_loss_rs": 33979.84
+  }
+ ],
+ "stages": [
+  {
+   "kind": "waiting",
+   "segments": 112,
+   "lots": 112,
+   "weight_loss_kg": 380.2,
+   "weight_loss_rs": 6993.63,
+   "quality_loss_rs": 24945.49,
+   "total_loss_rs": 31939.12,
+   "value_in": 559196.75,
+   "loss_pct": 5.71
+  },
+  {
+   "kind": "transport",
+   "segments": 112,
+   "lots": 112,
+   "weight_loss_kg": 157.8,
+   "weight_loss_rs": 2774.47,
+   "quality_loss_rs": 7759.54,
+   "total_loss_rs": 10534.01,
+   "value_in": 527257.78,
+   "loss_pct": 2.0
+  },
+  {
+   "kind": "handling_in",
+   "segments": 114,
+   "lots": 114,
+   "weight_loss_kg": 194.4,
+   "weight_loss_rs": 3580.17,
+   "quality_loss_rs": 0.0,
+   "total_loss_rs": 3580.17,
+   "value_in": 573192.07,
+   "loss_pct": 0.62
+  }
+ ],
+ "centres": [
+  {
+   "centre_id": "de040000-0000-4000-8000-000000000002",
+   "centre_name": "Centre B (Punganur)",
+   "lots": 61,
+   "total_loss_rs": 33979.84,
+   "waiting_loss_rs": 26785.62,
+   "avg_wait_h": 3.36,
+   "value_in": 301574.73,
+   "loss_pct": 11.27
+  },
+  {
+   "centre_id": "de040000-0000-4000-8000-000000000001",
+   "centre_name": "Centre A (Madanapalle)",
+   "lots": 53,
+   "total_loss_rs": 12073.46,
+   "waiting_loss_rs": 5153.5,
+   "avg_wait_h": 1.54,
+   "value_in": 271617.34,
+   "loss_pct": 4.45
+  }
+ ],
+ "transporters": [
+  {
+   "transporter_id": "de050000-0000-4000-8000-000000000002",
+   "transporter_name": "Balaji Logistics",
+   "vehicle_no": "AP03 TY 7781",
+   "trips": 54,
+   "total_loss_rs": 5405.08,
+   "avg_transport_h": 1.88,
+   "value_in": 252410.11,
+   "loss_pct": 2.14
+  },
+  {
+   "transporter_id": "de050000-0000-4000-8000-000000000001",
+   "transporter_name": "Sri Venkateswara Transport",
+   "vehicle_no": "AP03 TX 1042",
+   "trips": 58,
+   "total_loss_rs": 5128.93,
+   "avg_transport_h": 1.89,
+   "value_in": 274847.67,
+   "loss_pct": 1.87
+  }
+ ],
+ "hours": [
+  {
+   "arrival_hour": 7,
+   "segments": 18,
+   "avg_wait_h": 1.44,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 777.89,
+   "value_in": 88486.8,
+   "loss_pct": 0.88
+  },
+  {
+   "arrival_hour": 8,
+   "segments": 18,
+   "avg_wait_h": 1.62,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 881.32,
+   "value_in": 91627.84,
+   "loss_pct": 0.96
+  },
+  {
+   "arrival_hour": 9,
+   "segments": 14,
+   "avg_wait_h": 1.78,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 774.61,
+   "value_in": 69936.47,
+   "loss_pct": 1.11
+  },
+  {
+   "arrival_hour": 10,
+   "segments": 14,
+   "avg_wait_h": 1.65,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 675.05,
+   "value_in": 65558.89,
+   "loss_pct": 1.03
+  },
+  {
+   "arrival_hour": 11,
+   "segments": 9,
+   "avg_wait_h": 2.83,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 2719.01,
+   "value_in": 42023.16,
+   "loss_pct": 6.47
+  },
+  {
+   "arrival_hour": 12,
+   "segments": 11,
+   "avg_wait_h": 3.39,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 6511.9,
+   "value_in": 56449.04,
+   "loss_pct": 11.54
+  },
+  {
+   "arrival_hour": 13,
+   "segments": 13,
+   "avg_wait_h": 3.82,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 8957.52,
+   "value_in": 69714.6,
+   "loss_pct": 12.85
+  },
+  {
+   "arrival_hour": 14,
+   "segments": 8,
+   "avg_wait_h": 4.17,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 5682.21,
+   "value_in": 40779.71,
+   "loss_pct": 13.93
+  },
+  {
+   "arrival_hour": 15,
+   "segments": 7,
+   "avg_wait_h": 4.43,
+   "avg_heat_hours": 0.0,
+   "total_loss_rs": 4959.61,
+   "value_in": 34620.24,
+   "loss_pct": 14.33
+  }
+ ]
+}

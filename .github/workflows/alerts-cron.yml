@@ -1,0 +1,10 @@
+name: Alert sweep (fallback when pg_cron is unavailable)
+on: { schedule: [{ cron: '*/15 * * * *' }, { cron: '0 2 * * 1' }], workflow_dispatch: {} }
+jobs:
+  sweep:
+    if: ${{ vars.USE_GH_CRON == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS -X POST "${{ secrets.SUPABASE_URL }}/functions/v1/check-alerts" -H "x-cron-secret: ${{ secrets.CRON_SECRET }}"
+      - if: ${{ github.event.schedule == '0 2 * * 1' }}
+        run: curl -fsS -X POST "${{ secrets.SUPABASE_URL }}/functions/v1/insights-summary" -H "x-cron-secret: ${{ secrets.CRON_SECRET }}"

@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+:root { --bg:#f7f6f2; --surface:#fff; --text:#1f2a24; --muted:#5b6660; --line:#dcdad2; --brand:#15803d; --brand-strong:#14532d; --warn:#92400e; --danger:#b91c1c; --s1:#14532d; --s2:#c2410c; --s3:#1d4ed8; --s4:#7c3aed; }
+:root[data-theme='dark'] { --bg:#111815; --surface:#1a231f; --text:#eef2ee; --muted:#a3b0a8; --line:#2c3a33; --brand:#4ade80; --brand-strong:#86efac; --warn:#fbbf24; --danger:#f87171; --s1:#4ade80; --s2:#fb923c; --s3:#60a5fa; --s4:#c4b5fd; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) { --bg:#111815; --surface:#1a231f; --text:#eef2ee; --muted:#a3b0a8; --line:#2c3a33; --brand:#4ade80; --brand-strong:#86efac; --warn:#fbbf24; --danger:#f87171; --s1:#4ade80; --s2:#fb923c; --s3:#60a5fa; --s4:#c4b5fd; } }
+
+@theme inline {
+  --color-bg: var(--bg); --color-surface: var(--surface); --color-text: var(--text); --color-muted: var(--muted); --color-line: var(--line);
+  --color-brand: var(--brand); --color-brand-strong: var(--brand-strong); --color-warn: var(--warn); --color-danger: var(--danger);
+  --font-sans: Inter, 'Noto Sans Telugu', system-ui, sans-serif;
+}
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+@layer components {
+  .btn { display:flex; min-height:3rem; width:100%; align-items:center; justify-content:center; gap:.5rem; border-radius:.75rem; border:1px solid var(--line); background:var(--surface); padding:.5rem 1rem; font-weight:600; }
+  .btn:disabled { opacity:.5; }
+  .btn-primary { background:var(--brand-strong); color:#fff; border-color:transparent; }
+  :root[data-theme='dark'] .btn-primary { color:#052e16; background:var(--brand); }
+  .input { min-height:3rem; width:100%; border-radius:.75rem; border:1px solid var(--line); background:var(--surface); padding:.5rem .75rem; font-size:1.125rem; color:var(--text); }
+  .card { border-radius:.75rem; border:1px solid var(--line); background:var(--surface); padding:.75rem; }
+  .label { display:block; margin-bottom:.25rem; font-size:.875rem; font-weight:600; color:var(--muted); }
+}
+@media print { header, footer, nav, .no-print { display:none !important; } }
