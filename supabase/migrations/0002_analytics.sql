@@ -46,6 +46,7 @@ select m.org_id, m.lot_id, m.lot_code, (m.seq - 2)::int as seg_index, m.p_id as 
   case when m.v_from > 0 then round((m.w_rs + m.q_rs) / m.v_from * 100, 2) else 0 end as loss_pct,
   (m.weight_kg > m.p_w) as measurement_variance, m.quality_assessed,
   x.heat_hours, x.avg_temp_c, x.max_temp_c, x.status as exposure_status,
+  m.max_safe_wait_hours, ce.expected_transport_h, greatest(0, m.p_good - m.quality_good_pct) as quality_drop_points,
   case
     when m.p_w > 0 and abs(m.p_w - m.weight_kg) / m.p_w * 100 <= m.unit_tolerance_pct and m.q_rs = 0 then 'within_tolerance'
     when m.kind = 'waiting' and m.dur_h > m.max_safe_wait_hours and coalesce(x.heat_hours, 0) >= 1 then 'R1_heat_during_waiting'

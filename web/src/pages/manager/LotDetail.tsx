@@ -48,7 +48,7 @@ export default function LotDetail() {
             <div className="flex justify-between gap-2"><b>{t(`stage_${s.kind}`)} · {hoursLabel(s.duration_h)}</b><b>{inr(s.total_loss_rs)} ({pct(s.loss_pct)})</b></div>
             <div className="text-sm text-muted">{s.weight_from_kg} → {s.weight_to_kg} kg · ₹{Math.round(s.weight_loss_rs)} {t('weightPart')} + ₹{Math.round(s.quality_loss_rs)} {t('qualityPart')}</div>
             {s.measurement_variance && <div className="text-sm text-warn">{t('variance')}</div>}
-            <div className="text-sm" data-testid="cause"><span className="rounded-full bg-line px-2 py-0.5 text-xs font-semibold">{t(`cause_${s.cause_rule}`)}</span> {explainRule(s.cause_rule as CauseRule, { waitedH: s.duration_h, heatHours: s.heat_hours ?? 0, transportH: s.duration_h })}</div>
+            <div className="text-sm" data-testid="cause"><span className="rounded-full bg-line px-2 py-0.5 text-xs font-semibold">{t(`cause_${s.cause_rule}`)}</span> {explainRule(s.cause_rule as CauseRule, { waitedH: s.duration_h, limitH: s.max_safe_wait_hours ?? undefined, heatHours: s.heat_hours ?? 0, transportH: s.duration_h, expectedH: s.expected_transport_h ?? undefined, dropPoints: s.quality_drop_points ?? undefined })}</div>
             {s.exposure_status === 'ok' && <div className="text-xs text-muted" data-testid="weather">{t('weather')}: {s.heat_hours} h {t('aboveThreshold')} · {t('avg')} {s.avg_temp_c}°C · {t('max')} {s.max_temp_c}°C</div>}
             {s.exposure_status === 'unavailable' && <div className="text-xs text-muted">{t('weatherUnavailable')}</div>}
           </li>

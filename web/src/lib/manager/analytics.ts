@@ -9,6 +9,7 @@ export interface Segment {
   lot_id: string; lot_code: string; seg_index: number; from_stage: string; to_stage: string; kind: string; centre_id: string | null; transporter_id: string | null; started_at: string; ended_at: string; duration_h: number;
   weight_from_kg: number; weight_to_kg: number; weight_loss_rs: number; quality_loss_rs: number; total_loss_rs: number; loss_pct: number; measurement_variance: boolean;
   heat_hours: number | null; avg_temp_c: number | null; max_temp_c: number | null; exposure_status: string | null; cause_rule: string; to_checkpoint_id: string;
+  max_safe_wait_hours: number | null; expected_transport_h: number | null; quality_drop_points: number | null;
 }
 export interface AlertRow { id: string; lot_id: string; severity: 'warn' | 'critical'; rule: string; message_en: string; message_te: string | null; created_at: string; acknowledged_at: string | null; lot: { short_code: string } | null }
 export interface InsightRow { week_start: string; text_en: string; text_te: string | null; recommendation: string | null; numbers: { source?: string } }
