@@ -25,10 +25,16 @@ export async function generateInsight(db: Db, org: string, days = 14): Promise<'
   if (!input) return 'none';
   const t = templateInsight(input);
   let en = t.en, source: 'template' | 'ai' = 'template';
-  if (env('GEMINI_API_KEY') && env('GEMINI_MODEL')) {
+  const hasGroq = env('GROQ_API_KEY') && env('GROQ_MODEL');
+  const hasGemini = env('GEMINI_API_KEY') && env('GEMINI_MODEL');
+  if (hasGroq || hasGemini) {
     try {
       const given = JSON.stringify(input);
-      const out = (await callWithFallback(fetch, [env('GEMINI_MODEL'), env('GEMINI_MODEL_FALLBACK')], { apiKey: env('GEMINI_API_KEY'), prompt: `Rewrite this summary in plain, friendly English for a produce processor manager in at most 70 words. Use ONLY these numbers, do not add or change any: ${given}\nSummary: ${t.en}`, schema: { type: 'object', properties: { text: { type: 'string' } }, required: ['text'] } })) as { text?: string };
+      const out = (await callWithFallback(fetch, [
+        { provider: 'groq', apiKey: env('GROQ_API_KEY'), model: env('GROQ_MODEL') },
+        { provider: 'gemini', apiKey: env('GEMINI_API_KEY'), model: env('GEMINI_MODEL') },
+        { provider: 'gemini', apiKey: env('GEMINI_API_KEY'), model: env('GEMINI_MODEL_FALLBACK') },
+      ], { prompt: `Rewrite this summary in plain, friendly English for a produce processor manager in at most 70 words. Use ONLY these numbers, do not add or change any: ${given}\nSummary: ${t.en}`, schema: { type: 'object', properties: { text: { type: 'string' } }, required: ['text'] } })) as { text?: string };
       if (typeof out.text === 'string' && narrativeUsesOnlyGivenNumbers(out.text, given)) { en = out.text; source = 'ai'; }
     } catch { /* keep the template */ }
   }

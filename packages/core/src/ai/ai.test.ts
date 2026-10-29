@@ -11,16 +11,23 @@ describe('quality parsing', () => {
   it('normalises to 100', () => { const q = parseQualityResult({ good_pct: 72, damaged_pct: 20, rotten_pct: 7, confidence: 0.6 })!; expect(q.goodPct + q.damagedPct + q.rottenPct).toBeCloseTo(100, 5); });
   it('rejects answers that do not add up or are negative', () => { expect(parseQualityResult({ good_pct: 10, damaged_pct: 10, rotten_pct: 10 })).toBeNull(); expect(parseQualityResult({ good_pct: -5, damaged_pct: 100, rotten_pct: 5 })).toBeNull(); });
 });
-describe('gemini fallback', () => {
-  const ok = (text: string) => async () => new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text }] } }] }));
-  const base = { apiKey: 'k', prompt: 'p', schema: {}, imageBase64: 'x' };
-  it('uses the fallback model after a rate limit', async () => {
+describe('provider fallback (Groq primary, Gemini fallback)', () => {
+  const okGemini = (text: string) => async () => new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text }] } }] }));
+  const okGroq = (text: string) => async () => new Response(JSON.stringify({ choices: [{ message: { content: text } }] }));
+  const base = { prompt: 'p', schema: {}, imageBase64: 'x' };
+  const groq = (model = 'g1') => ({ provider: 'groq' as const, apiKey: 'k', model });
+  const gemini = (model = 'm1') => ({ provider: 'gemini' as const, apiKey: 'k', model });
+  it('uses Gemini after Groq rate-limits', async () => {
     const seen: string[] = [];
-    const f = (async (url: URL | string) => { seen.push(String(url)); return seen.length === 1 ? new Response('', { status: 429 }) : ok('{"a":1}')(); }) as unknown as typeof fetch;
-    expect(await callWithFallback(f, ['m1', 'm2'], base)).toEqual({ a: 1 }); expect(seen[1]).toContain('m2');
+    const f = (async (url: URL | string) => { seen.push(String(url)); return seen.length === 1 ? new Response('', { status: 429 }) : okGemini('{"a":1}')(); }) as unknown as typeof fetch;
+    expect(await callWithFallback(f, [groq(), gemini()], base)).toEqual({ a: 1 }); expect(seen[0]).toContain('groq'); expect(seen[1]).toContain('m1');
   });
-  it('no model configured is a clean reason, not a crash', async () => { await expect(callWithFallback(fetch, [], base)).rejects.toMatchObject({ reason: 'not_configured' }); });
-  it('bad JSON becomes bad_json', async () => { await expect(callWithFallback(ok('nope') as unknown as typeof fetch, ['m'], base)).rejects.toBeInstanceOf(AiError); });
+  it('a provider with no key or model is skipped, not tried', async () => {
+    const f = okGroq('{"a":1}') as unknown as typeof fetch;
+    expect(await callWithFallback(f, [{ provider: 'groq', apiKey: '', model: '' }, groq()], base)).toEqual({ a: 1 });
+  });
+  it('no provider configured is a clean reason, not a crash', async () => { await expect(callWithFallback(fetch, [], base)).rejects.toMatchObject({ reason: 'not_configured' }); });
+  it('bad JSON becomes bad_json', async () => { await expect(callWithFallback(okGroq('nope') as unknown as typeof fetch, [groq()], base)).rejects.toBeInstanceOf(AiError); });
 });
 describe('weather exposure', () => {
   const h = new Map<string, number>([['2026-10-10T04', 28], ['2026-10-10T05', 33], ['2026-10-10T06', 35], ['2026-10-10T07', 31]]);

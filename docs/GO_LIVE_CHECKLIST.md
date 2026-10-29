@@ -15,11 +15,11 @@ Everything below is configuration: no code changes are needed. Do these in order
 ## 2. Secrets for the Edge Functions
 ```bash
 CRON_SECRET=$(openssl rand -hex 24); TELEGRAM_WEBHOOK_SECRET=$(openssl rand -hex 24)
-supabase secrets set GEMINI_API_KEY=... GEMINI_MODEL=... GEMINI_MODEL_FALLBACK=... AI_DAILY_LIMIT=400 AI_ORG_DAILY_LIMIT=150 \
+supabase secrets set GROQ_API_KEY=... GROQ_MODEL=... GEMINI_API_KEY=... GEMINI_MODEL=... GEMINI_MODEL_FALLBACK=... AI_DAILY_LIMIT=400 AI_ORG_DAILY_LIMIT=150 \
   INSIGHTS_ORG_DAILY_LIMIT=20 WEATHER_ORG_DAILY_LIMIT=600 STAFF_ORG_DAILY_LIMIT=30 \
   TELEGRAM_BOT_TOKEN=... TELEGRAM_WEBHOOK_SECRET=$TELEGRAM_WEBHOOK_SECRET CRON_SECRET=$CRON_SECRET
 ```
-(`SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` are provided automatically.) **Gemini model:** in Google AI Studio create a key and pick a current Flash-class model with image input and JSON output on the free tier. **Confirm against the live model list**; model names change.
+(`SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` are provided automatically.) AI tries Groq first, then falls back to Gemini; either can be left blank and the app falls back to typing. **Groq:** console.groq.com → API Keys → create a key; pick a current vision-capable model (e.g. a Llama 4 Scout/Maverick variant) from the live model list. **Gemini:** Google AI Studio → create a key and pick a current Flash-class model with image input and JSON output on the free tier. **Confirm both against their live model lists**; model names change.
 
 ## 3. Deploy the functions
 ```bash

@@ -5,7 +5,7 @@
 | Frontend | React 19 + Vite + TypeScript + Tailwind 4 PWA, react-i18next (EN/TE) | fast installable mobile-first app |
 | Backend | Supabase free tier (Postgres, Auth, Storage, Edge Functions, RLS, pg_cron) | one free stack for data, auth, files and server logic |
 | Auth | Email + password; no public sign-up; demo users seeded; managers create staff | magic links are rate-limited on the free tier; real customers are created by the project owner |
-| AI | Gemini via AI Studio key, model names only in env vars (`GEMINI_MODEL`, `GEMINI_MODEL_FALLBACK`) | model lists change; swappable provider |
+| AI | Groq (vision-capable Llama) as primary, Gemini as fallback; both optional and independently configured, model names only in env vars (`GROQ_MODEL`, `GEMINI_MODEL`, `GEMINI_MODEL_FALLBACK`) | Groq's free tier is fast for the demo; Gemini covers it if Groq is rate-limited or misconfigured; model lists change, so names stay out of code |
 | Weather | Open-Meteo forecast API with `past_days`, day-level cache, "unavailable" instead of invented values; transient failures retried, not stored | free hourly data; the archive API was unreliable |
 | Maps | MapLibre + OpenFreeMap; list fallback if tiles fail | no key, no request limits |
 | Charts | Recharts, each with a value table; colour never the only carrier of meaning | accessibility |

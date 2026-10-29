@@ -31,7 +31,7 @@ ok('a short token returns nothing', ((await client().rpc('get_public_lot_report'
 const mAuth = await bearer(manager), aAuth = await bearer(agent);
 const ai = await fn('ai-read-scale', { method: 'POST', headers: aAuth, body: JSON.stringify({ image_base64: 'A'.repeat(200) }) });
 ok('ai-read-scale answers 200 with ok/reason (never blocks)', ai.status === 200 && typeof ai.body?.ok === 'boolean', JSON.stringify(ai.body));
-if (ai.body?.reason === 'not_configured') console.log('NOTE  GEMINI_API_KEY / GEMINI_MODEL are not set: AI falls back to manual entry.');
+if (ai.body?.reason === 'not_configured') console.log('NOTE  no AI provider is set (GROQ_API_KEY/GROQ_MODEL or GEMINI_API_KEY/GEMINI_MODEL): AI falls back to manual entry.');
 const ins = await fn('insights-summary', { method: 'POST', headers: mAuth, body: '{"days":14}' });
 ok('insights-summary returns a summary', ins.status === 200 && !!ins.body?.text_en, JSON.stringify(ins.body));
 ok('agent cannot generate insights', (await fn('insights-summary', { method: 'POST', headers: aAuth, body: '{}' })).status === 403);

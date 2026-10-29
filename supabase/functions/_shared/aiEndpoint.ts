@@ -22,7 +22,11 @@ export function aiEndpoint(task: 'scale' | 'quality', prompt: string, schema: ob
     const orgOk = globalOk && (await takeDailyBudget(admin, `${task}:${caller.orgId}`, Number(env('AI_ORG_DAILY_LIMIT', '150'))));
     if (!orgOk) return json({ ok: false, reason: 'budget' });
     try {
-      const raw = await callWithFallback(fetch, [env('GEMINI_MODEL'), env('GEMINI_MODEL_FALLBACK')], { apiKey: env('GEMINI_API_KEY'), prompt, schema, imageBase64: body.image_base64 });
+      const raw = await callWithFallback(fetch, [
+        { provider: 'groq', apiKey: env('GROQ_API_KEY'), model: env('GROQ_MODEL') },
+        { provider: 'gemini', apiKey: env('GEMINI_API_KEY'), model: env('GEMINI_MODEL') },
+        { provider: 'gemini', apiKey: env('GEMINI_API_KEY'), model: env('GEMINI_MODEL_FALLBACK') },
+      ], { prompt, schema, imageBase64: body.image_base64 });
       const result = parse(raw);
       if (!result) return json({ ok: false, reason: 'unusable' });
       await admin.from('ai_cache').upsert({ photo_hash: hash, task, result }, { onConflict: 'photo_hash,task' });
