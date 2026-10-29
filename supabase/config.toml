@@ -1,0 +1,22 @@
+# Local/CLI configuration. Cloud project settings (auth, email confirmation) are set in the dashboard: see docs/GO_LIVE_CHECKLIST.md.
+project_id = "lossmap"
+
+[auth]
+enable_signup = false
+enable_anonymous_sign_ins = false
+
+[auth.email]
+enable_confirmations = false
+
+# These endpoints are not called with a user JWT; they authenticate with their own secret instead.
+[functions.check-alerts]
+verify_jwt = false
+[functions.telegram-webhook]
+verify_jwt = false
+[functions.public-photo]
+verify_jwt = false
+[functions.keepalive]
+verify_jwt = false
+# insights-summary serves two callers: a manager (user JWT, checked inside) and the weekly cron (shared secret).
+[functions.insights-summary]
+verify_jwt = false

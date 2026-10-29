@@ -1,0 +1,5 @@
+-- Run once in the SQL editor after replacing YOUR-PROJECT-REF and YOUR-CRON-SECRET. Needs the pg_cron and pg_net extensions.
+create extension if not exists pg_cron; create extension if not exists pg_net;
+select cron.schedule('lossmap-check-alerts', '*/15 * * * *', $$ select net.http_post(url := 'https://YOUR-PROJECT-REF.supabase.co/functions/v1/check-alerts', headers := jsonb_build_object('x-cron-secret', 'YOUR-CRON-SECRET', 'content-type', 'application/json'), body := '{}'::jsonb) $$);
+select cron.schedule('lossmap-keepalive', '0 4 * * *', $$ select net.http_post(url := 'https://YOUR-PROJECT-REF.supabase.co/functions/v1/keepalive', headers := jsonb_build_object('x-cron-secret', 'YOUR-CRON-SECRET', 'content-type', 'application/json'), body := '{}'::jsonb) $$);
+select cron.schedule('lossmap-weekly-insights', '0 2 * * 1', $$ select net.http_post(url := 'https://YOUR-PROJECT-REF.supabase.co/functions/v1/insights-summary', headers := jsonb_build_object('x-cron-secret', 'YOUR-CRON-SECRET', 'content-type', 'application/json'), body := '{}'::jsonb) $$);
