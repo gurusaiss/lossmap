@@ -1,4 +1,4 @@
-import { lazy, Suspense, type ReactNode } from 'react';
+import { Component, lazy, Suspense, type ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AuthProvider, useAuth } from './lib/auth.tsx';
@@ -33,8 +33,20 @@ function RequireAuth({ children }: { children: ReactNode }) {
 const guard = (el: ReactNode) => <RequireAuth>{el}</RequireAuth>;
 const mgr = (el: ReactNode) => <RequireAuth><RequireManager>{el}</RequireManager></RequireAuth>;
 
+// Catches any render error anywhere in the tree so one bad screen shows a recovery card, not a blank white app.
+function ErrorFallback() {
+  const { t } = useTranslation();
+  return <div className="mx-auto max-w-md space-y-4 p-6 text-center" role="alert"><h1 className="text-xl font-extrabold">{t('error')}</h1><button className="btn btn-primary" onClick={() => location.reload()}>{t('retry')}</button></div>;
+}
+class RootErrorBoundary extends Component<{ children: ReactNode }, { bad: boolean }> {
+  state = { bad: false };
+  static getDerivedStateFromError() { return { bad: true }; }
+  render() { return this.state.bad ? <ErrorFallback /> : this.props.children; }
+}
+
 export default function App() {
   return (
+    <RootErrorBoundary>
     <AuthProvider>
       <BrowserRouter>
         <Suspense fallback={<p className="p-6 text-center">…</p>}>
@@ -57,5 +69,6 @@ export default function App() {
         </Suspense>
       </BrowserRouter>
     </AuthProvider>
+    </RootErrorBoundary>
   );
 }
