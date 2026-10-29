@@ -31,7 +31,7 @@ export function TeamSection() {
 
   return (
     <section className="space-y-2" data-testid="team-section">
-      <h2 className="font-bold">{t('teamTitle')}</h2><p className="text-sm text-muted">{t('teamIntro')}</p>
+      <h2 className="text-lg font-bold">{t('teamTitle')}</h2><p className="text-sm text-muted">{t('teamIntro')}</p>
       {errKey && <p role="alert" className="text-danger" data-testid="team-error">{t(errKey)}</p>}
       {loadFailed && <p role="alert" className="text-danger">{t('error')}</p>}
       {cred && (

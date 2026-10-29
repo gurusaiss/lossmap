@@ -15,12 +15,12 @@ export function ManagerShell({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(getTheme());
   const pending = usePendingCount(profile?.user_id);
   const lang = i18n.language as Lang;
-  const link = ({ isActive }: { isActive: boolean }) => `whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold ${isActive ? 'bg-brand/15 text-brand-strong' : 'text-muted'}`;
+  const link = ({ isActive }: { isActive: boolean }) => `nav-link ${isActive ? 'bg-brand/15 text-brand-strong' : 'text-muted hover:bg-line/50 hover:text-text'}`;
   return (
     <div className="min-h-dvh">
       <header className="sticky top-0 z-20 border-b border-line bg-surface">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2">
-          <Link to="/m" className="font-extrabold text-brand-strong">LossMap</Link>
+          <Link to="/m" className="text-lg font-extrabold text-brand-strong">LossMap</Link>
           <span className="hidden truncate text-sm text-muted sm:inline">{orgName}</span><span className="flex-1" />
           {pending > 0 && <Link to="/queue" className="flex items-center gap-0.5 rounded-full bg-warn/15 px-2 py-0.5 text-xs font-semibold text-warn"><ArrowUpIcon className="size-3.5" /> {pending}</Link>}
           <Link to="/?field=1" className="hidden min-h-10 items-center rounded-lg border border-line px-3 text-sm font-semibold sm:inline-flex">{t('fieldApp')}</Link>
@@ -35,7 +35,7 @@ export function ManagerShell({ children }: { children: ReactNode }) {
           <Link to="/?field=1" className="whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold text-muted sm:hidden">{t('fieldApp')}</Link>
         </nav>
       </header>
-      <main className="mx-auto max-w-6xl space-y-4 p-3 sm:p-4">{profile?.role === 'manager' ? <><TempPasswordBanner />{children}</> : null}</main>
+      <main className="animate-in mx-auto max-w-6xl space-y-4 p-3 sm:p-4">{profile?.role === 'manager' ? <><TempPasswordBanner />{children}</> : null}</main>
     </div>
   );
 }

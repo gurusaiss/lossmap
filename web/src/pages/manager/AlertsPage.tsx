@@ -11,12 +11,12 @@ export default function AlertsPage() {
   useEffect(() => { void reload(); }, []);
   return (
     <ManagerShell>
-      <h1 className="text-xl font-extrabold">{t('mgr_alerts')}</h1>
+      <h1 className="text-2xl font-extrabold">{t('mgr_alerts')}</h1>
       {err && <p role="alert" className="text-danger">{t('error')}</p>}
       {rows?.length === 0 && <p>{t('noAlerts')}</p>}
       <ul className="space-y-2" data-testid="alerts-list">
         {(rows ?? []).map((a) => (
-          <li key={a.id} className="card flex flex-wrap items-center gap-2" data-testid="alert-item">
+          <li key={a.id} className="card card-hover flex flex-wrap items-center gap-2" data-testid="alert-item">
             <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${a.severity === 'critical' ? 'bg-danger/15 text-danger' : 'bg-warn/15 text-warn'}`}>{t(`severity_${a.severity}`)}</span>
             <span className="min-w-0 flex-1">{i18n.language === 'te' && a.message_te ? a.message_te : a.message_en}<br /><Link className="text-xs underline" to={`/m/lot/${a.lot?.short_code}`}>{a.lot?.short_code}</Link></span>
             {a.acknowledged_at ? <span className="text-xs text-muted">{t('acknowledged')}</span> : <button className="btn !min-h-10 !w-auto text-sm" onClick={() => void acknowledgeAlert(a.id).then(reload)} data-testid="alert-ack">{t('acknowledge')}</button>}

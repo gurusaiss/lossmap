@@ -1,7 +1,7 @@
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { inr } from '../../lib/manager/format.ts';
 
-const axis = { fill: 'var(--muted)', fontSize: 12 };
+const axis = { fill: 'var(--muted)', fontSize: 13 };
 /** Every chart has a value table next to it (see Overview), so colour is never the only carrier of meaning. */
 export function BarsChart({ data, onPick, label }: { data: { name: string; value: number; key: string }[]; onPick?: (key: string) => void; label: string }) {
   return (

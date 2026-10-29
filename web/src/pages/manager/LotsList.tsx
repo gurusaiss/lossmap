@@ -12,11 +12,11 @@ export default function LotsList() {
   const shown = useMemo(() => (rows ?? []).filter((r) => `${r.short_code} ${r.farmer?.name} ${r.farmer?.village}`.toLowerCase().includes(q.toLowerCase())), [rows, q]);
   return (
     <ManagerShell>
-      <h1 className="text-xl font-extrabold">{t('mgr_lots')}</h1>
+      <h1 className="text-2xl font-extrabold">{t('mgr_lots')}</h1>
       <input className="input" placeholder={t('search')} aria-label={t('search')} value={q} onChange={(e) => setQ(e.target.value)} data-testid="lots-search" />
       {!rows && <p className="text-muted">{t('loading')}</p>}
       <table className="w-full text-sm" data-testid="lots-table"><thead><tr className="text-left text-muted"><th>{t('lot')}</th><th>{t('farmer')}</th><th>{t('status')}</th></tr></thead>
-        <tbody>{shown.map((r) => <tr key={r.id} className="border-t border-line"><td className="py-2"><Link className="font-semibold underline" to={`/m/lot/${r.short_code}`}>{r.short_code}</Link></td><td>{r.farmer?.name}, {r.farmer?.village}</td><td>{t(`status_${r.status}`)}</td></tr>)}</tbody></table>
+        <tbody>{shown.map((r) => <tr key={r.id} className="border-t border-line transition-colors hover:bg-line/40"><td className="py-2.5"><Link className="font-semibold text-brand-strong underline-offset-2 hover:underline" to={`/m/lot/${r.short_code}`}>{r.short_code}</Link></td><td>{r.farmer?.name}, {r.farmer?.village}</td><td>{t(`status_${r.status}`)}</td></tr>)}</tbody></table>
     </ManagerShell>
   );
 }

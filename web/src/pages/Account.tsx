@@ -24,7 +24,7 @@ function AccountBody() {
   }
   return (
     <>
-      <h1 className="text-xl font-extrabold">{t('account')}</h1>
+      <h1 className="text-2xl font-extrabold">{t('account')}</h1>
       <section className="card space-y-1 text-sm" data-testid="account-details">
         <div><b>{profile?.name}</b> · {profile ? t(`role_${profile.role}`) : ''}</div>
         {orgName && <div className="text-muted">{orgName}</div>}
@@ -32,7 +32,7 @@ function AccountBody() {
       </section>
       {orgIsDemo ? <p className="card text-sm text-muted" data-testid="demo-password-note">{t('demoPasswordNote')}</p> : (
         <form className="card space-y-2" onSubmit={(e) => { e.preventDefault(); void change(); }} data-testid="password-form">
-          <h2 className="font-bold">{t('changePassword')}</h2>
+          <h2 className="text-lg font-bold">{t('changePassword')}</h2>
           <label className="block"><span className="label">{t('newPassword')}</span><input className="input" type="password" autoComplete="new-password" value={pw} onChange={(e) => setPw(e.target.value)} data-testid="new-password" /></label>
           <label className="block"><span className="label">{t('repeatPassword')}</span><input className="input" type="password" autoComplete="new-password" value={again} onChange={(e) => setAgain(e.target.value)} data-testid="repeat-password" /></label>
           <p className="text-xs text-muted">{t('passwordRules')}</p>

@@ -18,7 +18,7 @@ export default function PublicReport() {
   if (r === null) return <p className="p-6 text-center" role="alert" data-testid="report-invalid">{t('reportInvalid')}</p>;
   return (
     <main className="mx-auto max-w-md space-y-3 p-4">
-      <h1 className="text-xl font-extrabold">{t('farmerReport')}</h1>
+      <h1 className="text-2xl font-extrabold">{t('farmerReport')}</h1>
       {r.is_demo && <p className="rounded-lg bg-warn/15 p-2 text-sm font-semibold text-warn" data-testid="simulated-badge">{t('simulatedBanner')}</p>}
       <div className="card space-y-1">
         <div className="text-sm text-muted">{r.org_name} · {r.short_code}</div>

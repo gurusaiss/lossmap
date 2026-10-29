@@ -11,7 +11,7 @@ export function InsightCard() {
   const rec = (() => { try { const j = JSON.parse(row?.recommendation ?? '{}') as { en?: string; te?: string }; return te ? j.te ?? j.en : j.en; } catch { return null; } })();
   return (
     <section className="card space-y-2" data-testid="insight-card">
-      <div className="flex items-center justify-between gap-2"><h2 className="font-bold">{t('insightTitle')}</h2>
+      <div className="flex items-center justify-between gap-2"><h2 className="text-lg font-bold">{t('insightTitle')}</h2>
         <button className="btn !min-h-10 !w-auto text-sm" onClick={() => void run()} disabled={busy} data-testid="insight-generate">{busy ? t('loading') : t('insightGenerate')}</button></div>
       {err && <p role="alert" className="text-danger text-sm">{t('error')}</p>}
       {row ? (<><p data-testid="insight-text">{te && row.text_te ? row.text_te : row.text_en}</p>{rec && <p className="text-sm font-semibold text-brand-strong" data-testid="insight-rec">{t('recommendation')}: {rec}</p>}

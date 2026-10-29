@@ -90,16 +90,16 @@ export default function Settings() {
   }
   return (
     <ManagerShell>
-      <div className="flex items-center gap-2"><h1 className="text-xl font-extrabold">{t('mgr_settings')}</h1>{orgIsDemo && <SimulatedBadge />}</div>
+      <div className="flex items-center gap-2"><h1 className="text-2xl font-extrabold">{t('mgr_settings')}</h1>{orgIsDemo && <SimulatedBadge />}</div>
       {error && <p role="alert" className="text-danger">{t('error')}</p>}
       {!m && !error && <p className="text-muted">{t('loading')}</p>}
       {orgIsDemo && (
-        <section className="card space-y-2" data-testid="demo-controls"><h2 className="font-bold">{t('simulatedBanner')}</h2>
+        <section className="card space-y-2" data-testid="demo-controls"><h2 className="text-lg font-bold">{t('simulatedBanner')}</h2>
           <div className="grid grid-cols-2 gap-2"><button className="btn btn-primary !min-h-12 text-base" disabled={demoBusy} onClick={() => void demo('load')} data-testid="demo-load">{t('loadDemo')}</button><button className="btn !min-h-12 text-base" disabled={demoBusy} onClick={() => void demo('reset')} data-testid="demo-reset">{t('resetDemo')}</button></div>
           {demoMsg && <p role="status" className="text-sm text-muted" data-testid="demo-msg">{demoMsg}</p>}</section>
       )}
       {m && (<>
-        <section className="space-y-2"><h2 className="font-bold">{t('settingsCrops')}</h2>
+        <section className="space-y-2"><h2 className="text-lg font-bold">{t('settingsCrops')}</h2>
           {m.crops.length === 0 && <p className="text-sm text-warn" data-testid="no-crops">{t('noCropsHint')}</p>}
           {m.crops.map((c) => <CropRow key={c.id} crop={c} onSaved={() => void reload()} />)}
           <div className="card space-y-2" data-testid="add-crop"><b>{t('addCrop')}</b>
@@ -109,7 +109,7 @@ export default function Settings() {
               <Field label={t('heatThreshold')} value={newCrop.heat} onChange={(x) => setNewCrop({ ...newCrop, heat: x })} /><Field label={t('maxWait')} value={newCrop.wait} step="0.5" onChange={(x) => setNewCrop({ ...newCrop, wait: x })} />
             </div>
             <div className="flex items-center gap-3"><button className="btn !min-h-10 !w-auto text-base" onClick={() => void addCrop()} data-testid="crop-add">{t('addCrop')}</button>{addMsg && <span className="text-sm text-muted" role="status" data-testid="add-msg">{addMsg}</span>}</div></div></section>
-        <section className="space-y-2"><h2 className="font-bold">{t('settingsCentres')}</h2>
+        <section className="space-y-2"><h2 className="text-lg font-bold">{t('settingsCentres')}</h2>
           {m.centres.length === 0 && <p className="text-sm text-warn" data-testid="no-centres">{t('noCentresHint')}</p>}
           {m.centres.map((c) => <CentreRow key={c.id} c={c} onSaved={() => void reload()} />)}
           <div className="card space-y-2"><b>{t('addCentre')}</b>
@@ -119,13 +119,13 @@ export default function Settings() {
               <Field label={t('lat')} value={newC.lat} step="0.0001" onChange={(x) => setNewC({ ...newC, lat: x })} /><Field label={t('lng')} value={newC.lng} step="0.0001" onChange={(x) => setNewC({ ...newC, lng: x })} />
             </div>
             <button className="btn !min-h-10 !w-auto text-base" onClick={() => void addCentre()}>{t('addCentre')}</button></div></section>
-        <section className="space-y-2"><h2 className="font-bold">{t('settingsTransporters')}</h2>
+        <section className="space-y-2"><h2 className="text-lg font-bold">{t('settingsTransporters')}</h2>
           {m.transporters.map((tr) => <div key={tr.id} className="card text-sm"><b>{tr.name}</b>{tr.vehicle_no ? ` · ${tr.vehicle_no}` : ''}</div>)}
           <div className="card space-y-2"><div className="grid grid-cols-2 gap-2"><Field label={t('name')} type="text" value={newT.name} onChange={(x) => setNewT({ ...newT, name: x })} /><Field label={t('vehicleNo')} type="text" value={newT.vehicle} onChange={(x) => setNewT({ ...newT, vehicle: x })} /></div>
             <button className="btn !min-h-10 !w-auto text-base" onClick={() => void addTransporter()}>{t('addTransporter')}</button></div></section>
       </>)}
       {!orgIsDemo && <TeamSection />}
-      <section className="card space-y-2" data-testid="telegram-card"><h2 className="font-bold">{t('telegramTitle')}</h2><p className="text-sm text-muted">{tgOn ? t('telegramConnected') : t('telegramNot')}</p>
+      <section className="card space-y-2" data-testid="telegram-card"><h2 className="text-lg font-bold">{t('telegramTitle')}</h2><p className="text-sm text-muted">{tgOn ? t('telegramConnected') : t('telegramNot')}</p>
         <button className="btn !min-h-10 !w-auto text-base" onClick={() => void connectTelegram()} data-testid="telegram-connect">{t('telegramConnect')}</button>
         {tgUrl !== null && (tgUrl === '' ? <p className="text-sm text-warn">{t('telegramBotMissing')}</p> : <p className="text-sm"><a className="font-semibold text-brand-strong underline" href={tgUrl} target="_blank" rel="noreferrer" data-testid="telegram-link">{tgUrl}</a><br /><span className="text-muted">{t('telegramHint')}</span></p>)}</section>
     </ManagerShell>

@@ -39,12 +39,12 @@ export default function LotDetail() {
   let run = 0; steps.forEach((s) => { s.base = run; run += s.loss; });
   return (
     <ManagerShell>
-      <h1 className="text-xl font-extrabold">{lot.short_code} <span className="text-base font-normal text-muted">{lot.crop?.name} · {lot.farmer?.name}, {lot.farmer?.village}</span></h1>
-      <p className="text-sm" data-testid="lot-total">{t('lotTotal')}: <b style={{ color: 'var(--s2)' }}>{inr(total)}</b></p>
+      <h1 className="text-2xl font-extrabold">{lot.short_code} <span className="text-base font-normal text-muted">{lot.crop?.name} · {lot.farmer?.name}, {lot.farmer?.village}</span></h1>
+      <p className="text-base" data-testid="lot-total">{t('lotTotal')}: <b className="text-figure text-lg">{inr(total)}</b></p>
       {segs.length > 0 && <Suspense fallback={null}><Waterfall steps={steps} label={t('waterfall')} /></Suspense>}
       <ul className="space-y-2" data-testid="segments">
         {segs.map((s) => (
-          <li key={s.to_checkpoint_id} className="card space-y-1" data-testid="segment">
+          <li key={s.to_checkpoint_id} className="card card-hover space-y-1" data-testid="segment">
             <div className="flex justify-between gap-2"><b>{t(`stage_${s.kind}`)} · {hoursLabel(s.duration_h)}</b><b>{inr(s.total_loss_rs)} ({pct(s.loss_pct)})</b></div>
             <div className="text-sm text-muted">{s.weight_from_kg} → {s.weight_to_kg} kg · ₹{Math.round(s.weight_loss_rs)} {t('weightPart')} + ₹{Math.round(s.quality_loss_rs)} {t('qualityPart')}</div>
             {s.measurement_variance && <div className="text-sm text-warn">{t('variance')}</div>}

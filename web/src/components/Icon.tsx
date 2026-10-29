@@ -29,3 +29,12 @@ export const CameraIcon = ({ className }: { className?: string }) => (
     <circle cx="12" cy="13" r="3.25" />
   </svg>
 );
+export const RupeeIcon = ({ className }: { className?: string }) => (
+  <svg {...base} className={cn(className)}><path d="M6 4h12M6 9h12M6 4c4 0 7 1.5 7 4.5S14 14 10 14h-4l8 7" /></svg>
+);
+export const PinIcon = ({ className }: { className?: string }) => (
+  <svg {...base} className={cn(className)}><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" /><circle cx="12" cy="10" r="2.5" /></svg>
+);
+export const BellIcon = ({ className }: { className?: string }) => (
+  <svg {...base} className={cn(className)}><path d="M6 10a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10Z" /><path d="M10 19a2 2 0 0 0 4 0" /></svg>
+);
