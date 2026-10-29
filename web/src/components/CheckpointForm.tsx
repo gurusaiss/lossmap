@@ -11,6 +11,7 @@ import { estimateQuality, readScale } from '../lib/ai.ts';
 import { QUALITY_PRESETS, type PresetKey } from '../lib/quality.ts';
 import type { Centre, Transporter } from '../lib/db.ts';
 import { CameraCapture, type CaptureMethod } from './CameraCapture.tsx';
+import { CameraIcon, CheckIcon } from './Icon.tsx';
 
 const STAGES: Stage[] = ['farm_pickup', 'centre_arrival', 'centre_dispatch', 'storage_in', 'storage_out', 'factory_arrival'];
 const needsCentre = (s: Stage) => s !== 'farm_pickup';
@@ -81,8 +82,8 @@ export function CheckpointForm({ lotId, lotLabel, lastStage, centres, transporte
           <select className="input" value={centreId} onChange={(e) => setCentreId(e.target.value)} data-testid="centre-select"><option value="">{t('choose')}</option>{centreOptions.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></label>
       )}
       <div className="grid grid-cols-2 gap-2">
-        <button className="btn" onClick={() => setCamera('scale')} data-testid="scale-open">{scale ? '✓ ' : ''}{t('scalePhoto')}</button>
-        <button className="btn" onClick={() => setCamera('produce')} data-testid="produce-open">{produce ? '✓ ' : ''}{t('producePhoto')}</button>
+        <button className={scale ? 'btn border-brand text-brand-strong' : 'btn'} onClick={() => setCamera('scale')} data-testid="scale-open">{scale ? <CheckIcon className="size-5" /> : <CameraIcon className="size-5" />} {t('scalePhoto')}</button>
+        <button className={produce ? 'btn border-brand text-brand-strong' : 'btn'} onClick={() => setCamera('produce')} data-testid="produce-open">{produce ? <CheckIcon className="size-5" /> : <CameraIcon className="size-5" />} {t('producePhoto')}</button>
       </div>
       <label className="block"><span className="label">{t('weightKg')}</span>
         <input className="input" inputMode="decimal" value={weight} onChange={(e) => setWeight(e.target.value)} data-testid="weight-input" /></label>

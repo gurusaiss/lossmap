@@ -6,6 +6,7 @@ import { setLang, type Lang } from '../../i18n/index.ts';
 import { applyTheme, getTheme, nextTheme, type Theme } from '../../lib/theme.ts';
 import { usePendingCount } from '../../lib/offline/hooks.ts';
 import { TempPasswordBanner } from '../TempPasswordBanner.tsx';
+import { ArrowUpIcon } from '../Icon.tsx';
 
 const THEME_LABEL: Record<Theme, string> = { system: 'Auto', light: 'Light', dark: 'Dark' };
 export function ManagerShell({ children }: { children: ReactNode }) {
@@ -21,7 +22,7 @@ export function ManagerShell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 py-2">
           <Link to="/m" className="font-extrabold text-brand-strong">LossMap</Link>
           <span className="hidden truncate text-sm text-muted sm:inline">{orgName}</span><span className="flex-1" />
-          {pending > 0 && <Link to="/queue" className="rounded-full bg-warn/15 px-2 py-0.5 text-xs font-semibold text-warn">⬆ {pending}</Link>}
+          {pending > 0 && <Link to="/queue" className="flex items-center gap-0.5 rounded-full bg-warn/15 px-2 py-0.5 text-xs font-semibold text-warn"><ArrowUpIcon className="size-3.5" /> {pending}</Link>}
           <Link to="/?field=1" className="hidden min-h-10 items-center rounded-lg border border-line px-3 text-sm font-semibold sm:inline-flex">{t('fieldApp')}</Link>
           <button className="min-h-10 min-w-10 rounded-lg border border-line px-2 text-sm font-semibold" aria-label="Theme" data-testid="theme-toggle" onClick={() => { const n = nextTheme(theme); applyTheme(n); setTheme(n); }}>{THEME_LABEL[theme]}</button>
           <button className="min-h-10 rounded-lg border border-line px-2 text-sm font-semibold" aria-label={t('language')} onClick={() => setLang(lang === 'te' ? 'en' : 'te')}>{lang === 'te' ? 'EN' : 'తె'}</button>
