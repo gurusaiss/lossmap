@@ -38,3 +38,18 @@ export const PinIcon = ({ className }: { className?: string }) => (
 export const BellIcon = ({ className }: { className?: string }) => (
   <svg {...base} className={cn(className)}><path d="M6 10a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10Z" /><path d="M10 19a2 2 0 0 0 4 0" /></svg>
 );
+export const DownloadIcon = ({ className }: { className?: string }) => (
+  <svg {...base} className={cn(className)}><path d="M12 4v11M7.5 11.5 12 16l4.5-4.5" /><path d="M5 19h14" /></svg>
+);
+export const HistoryIcon = ({ className }: { className?: string }) => (
+  <svg {...base} className={cn(className)}><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg>
+);
+export const UploadIcon = ({ className }: { className?: string }) => (
+  <svg {...base} className={cn(className)}><path d="M12 16V5M7.5 9.5 12 5l4.5 4.5" /><path d="M5 19h14" /></svg>
+);
+export const MenuIcon = ({ className }: { className?: string }) => (
+  <svg {...base} className={cn(className)}><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+);
+export const CloseIcon = ({ className }: { className?: string }) => (
+  <svg {...base} className={cn(className)}><path d="M6 6l12 12M18 6 6 18" /></svg>
+);

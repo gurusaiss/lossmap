@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../lib/auth.tsx';
 import { isConfigured } from '../lib/supabase.ts';
@@ -7,6 +7,8 @@ import { setLang, type Lang } from '../i18n/index.ts';
 
 const DEMO = [{ role: 'role_manager', email: 'manager@demo.lossmap.app' }, { role: 'role_field_agent', email: 'agent@demo.lossmap.app' }, { role: 'role_factory_receiver', email: 'receiver@demo.lossmap.app' }];
 const DEMO_PASSWORD = 'LossMap-Demo-2026';
+// Fixed public_token the demo seed always assigns to lot T-1043 (see migration 0005), so this link always works without logging in.
+const DEMO_FARMER_TOKEN = '7f3a9c2e1b6d4850a2f9e7c3b1d6485029f3e7c1b9d6485a2f9e7c3b1d64850';
 
 export default function Login() {
   const { t, i18n } = useTranslation();
@@ -36,6 +38,7 @@ export default function Login() {
         ))}
         <p className="text-xs text-muted">{t('demoPasswordShown', { password: DEMO_PASSWORD })}</p>
       </section>
+      <Link to={`/r/${DEMO_FARMER_TOKEN}`} className="btn" data-testid="demo-farmer-report">{t('viewFarmerDemo')}</Link>
     </div>
   );
 }

@@ -39,7 +39,8 @@ test('manager screens: overview, lot detail, alerts, settings with team and a te
 
 test('dark mode: manager overview', async ({ page }) => {
   await mockBackend(page); await loginAs(page, 0);
-  await page.getByTestId('theme-toggle').click(); await page.getByTestId('theme-toggle').click();
+  await page.getByTestId('mobile-menu-toggle').click();
+  await page.getByTestId('theme-toggle-mobile').click(); await page.getByTestId('theme-toggle-mobile').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark'); await expect(page.getByTestId('stage-chart')).toBeVisible(); await audit(page, 'overview (dark)');
 });
 
